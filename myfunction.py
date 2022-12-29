@@ -1,5 +1,7 @@
 def details():
     while True:
+
+        username=input("Enter username:")
         fname=input("Enter your fname:")
         lenght1=len(fname)
         if lenght1==0 or fname.isdigit():
@@ -34,5 +36,5 @@ def details():
                         break
                     break
             break
-    return fname, lname, email, password, mobile
+    return username, fname, lname, email, password, mobile
 

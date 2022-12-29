@@ -1,6 +1,7 @@
 def login():
+    global username
     while True:
-        username=input("Enter your name:")
+        username=input("Enter your username:")
         password=input("Enter your password:")
         try:
             fileobject= open("userinfo.txt", 'r')
@@ -11,7 +12,7 @@ def login():
             fileobject.close()
         for i in info:
             data = i.split(":")
-            if username == data[0] and password == data[3]:
+            if username == data[0] and password == data[4]:
                 print("login successfully")
                 break
             
@@ -19,7 +20,6 @@ def login():
             print("wrong data")
             continue
         break
-    
+    return username
 
     
-
