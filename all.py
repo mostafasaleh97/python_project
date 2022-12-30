@@ -71,6 +71,8 @@ def addproject():
     else:
         fileobject.write(projectdata)
         fileobject.close()
+        print("added successfully")
+    
     showprojects()
 
 def readfile():
@@ -86,7 +88,7 @@ def showprojects():
     print("Hi" + " " + username )
     if  os.stat(username + ".txt").st_size == 0:
         print("you don't have projects untill now")
-        stat=print("Do you want to creat your first project y/n :")
+        stat=input("Do you want to creat your first project y/n :")
         if stat=="y":
             addproject()
         else:
@@ -103,18 +105,29 @@ def showprojects():
             project=i.split(":")
             print(project[0])
         print("choose your select:")
-        choice=print("show project" + " " + "edit project" + " " +"delte project" + " " + "exit")
-        if choice == "show project":
-            displayproject()
-        elif choice=="edit project":
-            editproject()
-        elif choice=="delete project":
-            pass
-        elif choice=="exit":
-            exit
-        else:
-            print("wrong choice")
-
+        while True:
+            choice=input("create project  show project  edit project  delete project  search  logout :")
+            if choice=="create project":
+                addproject()
+                break
+            elif choice == "show project":
+                displayproject()
+                break
+            elif choice=="edit project":
+                editproject()
+                break
+            elif choice=="delete project":
+                deleteproject()
+                break
+            elif choice=="search":
+                searchbydate()
+                break
+            elif choice=="logout":
+                exit
+            else:
+                print("wrong choice")
+                continue
+    lastchance()
 
 
 
@@ -164,13 +177,63 @@ def editproject():
         data=file.write(x)
     file.close() 
 
-
-
-
-
-
-            
+def deleteproject():
+    title=input("Enter the name of project you want to delete:")
+    file= open(username + ".txt", 'r')
+    data=file.readlines()
+    file.close()
+    for i in data:
+        project=i.split(":")
+        if project[0]==title:
+            num2=data.index(i)
+            break
+    else:
+        print("this project doesn't exist")
+        deleteproject()
+    data.pop(num2)
+    file= open(username + ".txt", 'w')
+    for x in data:
+        data=file.write(x)
+    print("deleted successfully")    
+    file.close()  
     
 
-# main()
-# addproject()
+
+def searchbydate():
+    while True:
+        try:
+        # formatting the date using strptime() function
+            searchdate=input("Set start or end  date for the campaign in that format YYYY-MM-DD:")
+            dateObject = datetime.datetime.strptime(searchdate, date_format)
+            break
+        # If the date validation goes wrong
+        except ValueError:
+    # printing the appropriate text if ValueError occurs
+            print("Incorrect data format, should be YYYY-MM-DD")
+            continue
+    readfile()
+    for i in data:
+        project=i.split(":")
+        if searchdate==project[3] or searchdate==project[4]:
+            print("title" +":"+ project[0])
+            print("details" + ":" + project[1]) 
+            print("target" + ":" + project[2])
+            print ("startdate" + ":" + project[3])
+            print("enddate" + ":" +project[4])
+        else:
+            print("No project match this date")
+            searchbydate() 
+        
+def lastchance():
+    chance=input("Do ou want another service y/n:")
+    if chance=="y":
+        showprojects()
+    elif chance=="n":
+        print("Thank you for your visiting our project")
+    else:
+        print("wrong choice")
+        lastchance()            
+        
+
+main()
+showprojects()

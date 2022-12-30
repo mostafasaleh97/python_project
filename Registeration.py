@@ -10,4 +10,11 @@ def registeration():
     else:
         fileobject.write(userinfo)
         fileobject.close()
+    try:
+        fileobject= open(username + ".txt", 'a')
+    except Exception as e:
+        print(e)
+    else:
+        fileobject.write("")
+        fileobject.close()
     return username
