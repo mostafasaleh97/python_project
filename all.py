@@ -176,7 +176,8 @@ def editproject():
     for x in data:
         data=file.write(x)
     file.close() 
-
+    print("Updated successfully")
+    
 def deleteproject():
     title=input("Enter the name of project you want to delete:")
     file= open(username + ".txt", 'r')
@@ -225,11 +226,12 @@ def searchbydate():
             searchbydate() 
         
 def lastchance():
-    chance=input("Do ou want another service y/n:")
+    chance=input("Do you want another service y/n:")
     if chance=="y":
         showprojects()
     elif chance=="n":
         print("Thank you for your visiting our project")
+        exit
     else:
         print("wrong choice")
         lastchance()            
